@@ -7,11 +7,19 @@ const handlebars = require('express-handlebars')
 const app = express()
 const port = 5000
 
+const route = require('./routes/index.route')
+
 //Handle static file 
 app.use(express.static(path.join(__dirname,'public')))
 
+// middleware
+app.use(express.urlencoded({
+    extended:true
+}))
+app.use(express.json())
+
 //Http logger
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 
 //Template engine
 app.engine('hbs', handlebars.engine({
@@ -21,12 +29,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 console.log(path.join(__dirname, 'views'));
 
-// route
-app.get("/",(req,res) => {
-    res.render('home')
-})
-app.get("/blog",(req,res) => {
-    res.render('blog')
-})
+// Route
+route(app)
 
 app.listen(port,() => console.log(`Running app at http://localhost:${port}`))
