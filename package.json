@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --inspect src/index.js",
-    "watch": "node-sass --watch src/resources/scss/ --output src/public/css/"
+    "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
+    "beautiful": "lint-staged",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +18,12 @@
     "git": "^0.1.5"
   },
   "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
     "morgan": "^1.10.0",
     "node-sass": "^9.0.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,scss}": "prettier --write --single-quote --trailing-comma all"
   }
 }
