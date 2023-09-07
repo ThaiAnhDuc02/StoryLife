@@ -1,6 +1,7 @@
 // @ts-nocheck
 const path = require('path');
 const express = require('express');
+var methodOverride = require('method-override')
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 
@@ -9,8 +10,16 @@ const port = 5000;
 
 const route = require('./routes/index.route');
 
+const db = require('./app/config/db')
+
+// Connect to DB
+db.connect()
+
 //Handle static file
 app.use(express.static(path.join(__dirname, 'public')));
+
+// override with POST having ?_method=PUT
+app.use(methodOverride('_method'))
 
 // middleware
 app.use(

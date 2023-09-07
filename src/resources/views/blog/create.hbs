@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  {{!-- CkEditor --}}
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+</head>
+<body>
+  <div class="mt-4" style="padding-bottom: 100px;">
+  <h3>Viết blog</h3>
+  <form method="POST" action="/blog/store" id="createForm">
+    <div class="mb-3">
+      <label for="title" class="form-label">Tiêu đề</label>
+      <input type="text" class="form-control" id="title" name="title" />
+    </div>
+    {{!-- editor --}}
+    <div id="CkEditor"></div>
+    <input type="hidden" id="content" name="content" />
+    {{!-- the end editor --}}
+    <div class="mb-3">
+      <label for="image_cover" class="form-label">Hình ảnh</label>
+      <input type="text" class="form-control" id="image_cover" name="image_cover" />
+    </div>
+    <label for="cars">Chọn thể loại:</label>
+    <select name="category"  class="form-select">
+      <option value="travel">Du lịch</option>
+      <option value="study">Học tập</option>
+      <option value="international">Thế giới</option>
+      <option value="different">Khác</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+  </form>
+  
+</div>
+</body>
+    <script>
+       ClassicEditor
+        .create( document.querySelector( '#CkEditor' ) )
+        .then( editor => {
+          editor.model.document.on('change:data', () => {
+          const content = editor.getData();
+          document.querySelector('#content').value = content;
+      });
+        })
+        .catch( error => {
+          console.error( error );
+        });
+    </script>
+</html>

@@ -1,0 +1,70 @@
+<div style="padding-bottom: 200px;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Thể loại</th>
+        <th scope="col">Tiêu đề</th>
+        <th scope="col">Tuỳ chọn</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each blogs}}
+      <tr>
+        <th scope="row">{{@index}}</th>
+        <th scope="row">{{this.category}}</th>
+        <th scope="row">{{this.title}}</th>
+        <td  scope="row">
+          <a href="/blog/{{this.slug}}" type="button" class="btn btn-info">Xem bài viết</a>
+          <a href="/blog/{{this._id}}/edit" type="button" class="btn btn-dark">Sửa</a>
+          <a href="" class="btn btn-danger" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-blog-modal">Xóa</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{!-- Delete hidden form --}}
+<form method="POST" name="delete-blog-form"></form>
+{{!-- Confirm delete course --}}
+<div id="delete-blog-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xoá bỏ bài viết?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa bài viết này?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button id="btn-delete-blog" type="button" class="btn btn-danger">Xóa bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var blogId;
+    var deleteForm = document.forms['delete-blog-form'];
+    var btnDeleteCourse = document.getElementById('btn-delete-blog');
+
+    // When dialog confirm clicked
+    $('#delete-blog-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      blogId = button.data('id');
+      console.log(blogId)
+    });
+
+    var btnDelete = document.getElementById('btn-delete-blog');
+    btnDelete.onclick = function () {
+      deleteForm.action = '/blog/' + blogId + '?_method=DELETE'
+      deleteForm.submit()
+    }
+    
+  })
+</script>

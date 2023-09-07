@@ -6,22 +6,20 @@
         <div class="container">
           <div class="row gy-4 mb-5">
             <!-- post -->
-            <div class="col-xl-6"><a class="mb-3" href="post.html"><img
-                  class="img-fluid"
-                  src="img/blog-post-1.jpeg"
-                  alt="..."
-                /></a>
+            {{#each blogs}}
+            <div class="col-xl-6"><a class="mb-3" href="blog/{{this.slug}}">
+               <div style="height:255px; overflow:hidden"><img class="img-fluid" src="{{this.image_cover}}" alt="image cover" width="100%"></div></a>
+              </a>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-              ><small class="text-gray-500">20 May | 2016</small><a
+              ><small class="text-gray-500">{{this.createdAt}}</small><a
                   class="small fw-bold text-uppercase small"
                   href="!#"
-                >Business</a></div>
-              <h3 class="h4"><a class="text-dark" href="post.html">Alberto
-                  Savoia Can Teach You About Interior</a></h3>
-              <p class="text-muted text-sm">Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                ut labore.</p>
+                >{{this.category}}</a></div>
+              <h3 class="h5"><a class="text-dark" href="blog/{{this.slug}}">{{this.title}}</a></h3>
+              {{!-- <div id="blog-trailer-content">
+                <p class="text-muted text-sm text-content-trailer" style="display: none;" id="trailer_content">{{this.content}}</p>
+              </div> --}}
               <ul class="list-inline list-separated text-gray-500 mb-0">
                 <li class="list-inline-item"><a
                     class="d-flex align-items-center flex-wrap text-reset"
@@ -29,122 +27,23 @@
                   >
                     <div class="avatar flex-shrink-0"><img
                         class="img-fluid"
-                        src="img/avatar-3.jpg"
+                        src="https://res.cloudinary.com/dgvam9b0p/image/upload/v1691336818/blog_cloud/351456500_260405996644981_9086659673348838450_n_mwnf6j.jpg"
                         alt="..."
-                      /></div><small>John Doe</small></a></li>
+                      /></div><small>Thái Anh Đức</small>
+                      </a></li>
                 <li class="list-inline-item small"><i class="far fa-clock"></i>
-                  2 months ago</li>
-                <li class="list-inline-item small"><i
-                    class="far fa-comment"
-                  ></i>
-                  12</li>
+                  {{this.date}}</li>
+                <li class="list-inline-item small">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                  </svg>
+                  {{this.viewed}}
+                </li>
               </ul>
             </div>
+            {{/each}}
             <!-- post             -->
-            <div class="col-xl-6"><a class="mb-3" href="post.html"><img
-                  class="img-fluid"
-                  src="img/blog-post-2.jpg"
-                  alt="..."
-                /></a>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-              ><small class="text-gray-500">20 May | 2016</small><a
-                  class="small fw-bold text-uppercase small"
-                  href="!#"
-                >Business</a></div>
-              <h3 class="h4"><a class="text-dark" href="post.html">Alberto
-                  Savoia Can Teach You About Interior</a></h3>
-              <p class="text-muted text-sm">Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                ut labore.</p>
-              <ul class="list-inline list-separated text-gray-500 mb-0">
-                <li class="list-inline-item"><a
-                    class="d-flex align-items-center flex-wrap text-reset"
-                    href="!#"
-                  >
-                    <div class="avatar flex-shrink-0"><img
-                        class="img-fluid"
-                        src="img/avatar-2.jpg"
-                        alt="..."
-                      /></div><small>John Doe</small></a></li>
-                <li class="list-inline-item small"><i class="far fa-clock"></i>
-                  2 months ago</li>
-                <li class="list-inline-item small"><i
-                    class="far fa-comment"
-                  ></i>
-                  12</li>
-              </ul>
-            </div>
-            <!-- post             -->
-            <div class="col-xl-6"><a class="mb-3" href="post.html"><img
-                  class="img-fluid"
-                  src="img/blog-post-3.jpeg"
-                  alt="..."
-                /></a>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-              ><small class="text-gray-500">20 May | 2016</small><a
-                  class="small fw-bold text-uppercase small"
-                  href="!#"
-                >Business</a></div>
-              <h3 class="h4"><a class="text-dark" href="post.html">Alberto
-                  Savoia Can Teach You About Interior</a></h3>
-              <p class="text-muted text-sm">Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                ut labore.</p>
-              <ul class="list-inline list-separated text-gray-500 mb-0">
-                <li class="list-inline-item"><a
-                    class="d-flex align-items-center flex-wrap text-reset"
-                    href="!#"
-                  >
-                    <div class="avatar flex-shrink-0"><img
-                        class="img-fluid"
-                        src="img/avatar-3.jpg"
-                        alt="..."
-                      /></div><small>John Doe</small></a></li>
-                <li class="list-inline-item small"><i class="far fa-clock"></i>
-                  2 months ago</li>
-                <li class="list-inline-item small"><i
-                    class="far fa-comment"
-                  ></i>
-                  12</li>
-              </ul>
-            </div>
-            <!-- post -->
-            <div class="col-xl-6"><a class="mb-3" href="post.html"><img
-                  class="img-fluid"
-                  src="img/blog-post-4.jpeg"
-                  alt="..."
-                /></a>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-              ><small class="text-gray-500">20 May | 2016</small><a
-                  class="small fw-bold text-uppercase small"
-                  href="!#"
-                >Business</a></div>
-              <h3 class="h4"><a class="text-dark" href="post.html">Alberto
-                  Savoia Can Teach You About Interior</a></h3>
-              <p class="text-muted text-sm">Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                ut labore.</p>
-              <ul class="list-inline list-separated text-gray-500 mb-0">
-                <li class="list-inline-item"><a
-                    class="d-flex align-items-center flex-wrap text-reset"
-                    href="!#"
-                  >
-                    <div class="avatar flex-shrink-0"><img
-                        class="img-fluid"
-                        src="img/avatar-1.jpg"
-                        alt="..."
-                      /></div><small>John Doe</small></a></li>
-                <li class="list-inline-item small"><i class="far fa-clock"></i>
-                  2 months ago</li>
-                <li class="list-inline-item small"><i
-                    class="far fa-comment"
-                  ></i>
-                  12</li>
-              </ul>
-            </div>
           </div>
           <!-- Pagination -->
           <nav aria-label="Page navigation example">
@@ -307,3 +206,4 @@
     </div>
   </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

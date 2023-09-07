@@ -17,6 +17,8 @@ class SiteController {
     console.log(req.body);
     res.render('searchResult');
   }
+
+
 }
 
 module.exports = new SiteController();

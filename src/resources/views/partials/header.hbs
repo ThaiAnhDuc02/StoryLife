@@ -1,40 +1,33 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
-  <div class="container py-1"><a
-      class="navbar-brand text-sm fw-bold text-dark"
-      href="/"
-    >Bootstrap Blog</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    ><span></span><span></span><span></span></button>
+{{!-- header 1 --}}
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom py-3">
+  <div class="container py-1"><a class="navbar-brand text-lg fw-bold " style="color: red;" class="logo" href="/">Keep Things Simple !</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-        <li class="nav-item"><a class="nav-link active" href="/">Home</a>
+        <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a>
         </li>
-        <li class="nav-item"><a class="nav-link b" href="blog">Blog</a>
+        <li class="nav-item"><a class="nav-link b" href="/blog">Bài viết</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="post">Post</a>
+        <li class="nav-item"><a class="nav-link" href="/post">Tin tức</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="contact">Contact</a>
+        <li class="nav-item"><a class="nav-link" href="/contact">Liên hệ</a>
         </li>
-        <li class="nav-item mt-2 mt-lg-0">
-          <ul class="list-inline d-flex align-items-center">
-            <li class="list-inline-item mx-lg-2 px-2 border-start border-end"><a
-                class="search-btn nav-link small py-0 text-dark"
-                href="#"
-              ><i class="fas fa-search"></i></a></li>
-            <li class="list-inline-item d-flex align-items-end small"><a
-                class="text-dark"
-                href="#"
-              >EN</a><span class="underscore mb-1"></span><a
-                class="text-gray-500"
-                href="#"
-              >ES</a></li>
+        <li class="nav-item dropdown">
+          <a class="btn  dropdown-toggle" style="color: black; font-weight:600" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+            <img class="user-avatar" style="margin:0 8px;"
+              src="https://res.cloudinary.com/dgvam9b0p/image/upload/v1691336818/blog_cloud/351456500_260405996644981_9086659673348838450_n_mwnf6j.jpg">
+            Thái Anh Đức
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/user">Hồ sơ</a></li>
+            <li><a class="dropdown-item" href="/me/stored/blogs">Bài viết của tôi</a></li>
+            <li><a class="dropdown-item" href="/blog/create">Viết bài</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
           </ul>
         </li>
       </ul>
@@ -42,29 +35,44 @@
   </div>
 </nav>
 <div class="search-area">
-  <div
-    class="search-area-inner d-flex align-items-center justify-content-center position-relative"
-  >
-    <div
-      class="close-btn position-absolute p-4 top-0 end-0 cursor-pointer z-index-20"
-    ><i class="fas fa-times"></i></div>
+  <div class="search-area-inner d-flex align-items-center justify-content-center position-relative">
+    <div class="close-btn position-absolute p-4 top-0 end-0 cursor-pointer z-index-20"><i class="fas fa-times"></i>
+    </div>
     <div class="row d-flex justify-content-center w-100">
       <div class="col-md-8">
         <form method="POST" action="/search">
           <div class="input-group border-bottom">
-            <input
-              name="q"
-              class="form-control form-control-lg border-0 shadow-0 ps-0 bg-none px-0"
-              type="search"
-              placeholder="What are you looking for?"
-            />
-            <button
-              class="btn btn-link btn-lg shadow-0 btn-lg text-dark"
-              type="submit"
-            ><i class="fas fa-search" style="font-size: 26px;"></i></button>
+            <input name="q" class="form-control form-control-lg border-0 shadow-0 ps-0 bg-none px-0" type="search"
+              placeholder="What are you looking for?" />
+            <button class="btn btn-link btn-lg shadow-0 btn-lg text-dark" type="submit"><i class="fas fa-search"
+                style="font-size: 26px;"></i></button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+{{!-- the end header 1 --}}
+
+
+
+
+
+<script>
+  // Get the dropdown button element by class name
+  const dropdownButton = document.querySelector('.dropdown-toggle');
+
+  // Get the dropdown content element by class name
+  const dropdownContent = document.querySelector('.dropdown-menu');
+
+  // Add a click event listener to the dropdown button
+  dropdownButton.addEventListener('click', function () {
+    // Toggle the display of the dropdown content
+    if (dropdownContent.style.display === 'block') {
+      dropdownContent.style.display = 'none';
+    } else {
+      dropdownContent.style.display = 'block';
+    }
+  });
+
+</script>
