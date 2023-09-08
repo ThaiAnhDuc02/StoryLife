@@ -1,7 +1,7 @@
 class SiteController {
   // [GET] /
   home(req, res) {
-    res.render('home');
+    res.render('index');
   }
   //[POST] /contact
   contact(req, res) {
