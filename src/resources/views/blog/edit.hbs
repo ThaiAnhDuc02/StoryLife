@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  {{!-- CkEditor --}}
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <div class="mt-4" style="padding-bottom: 100px;">
+    <h3>Chỉnh sửa bài viết</h3>
+    <form method="POST" action="/blog/{{blog._id}}?_method=PUT" id="editForm">
+      <div class="mb-3">
+        <label for="title" class="form-label">Tiêu đề</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{blog.title}}" />
+      </div>
+      <div id="CkEditor"></div>
+      <input type="hidden" name="content" id="content" value="{{blog.content}}">
+      <div class="mb-3">
+        <label for="image_cover" class="form-label">Hình ảnh</label>
+        <input type="text" class="form-control" id="image_cover" name="image_cover" value="{{blog.image_cover}}" />
+      </div>
+      <label for="cars">Chọn thể loại:</label>
+      <select name="category" id="category" class="form-select" aria-label="Default select example">
+        <option value="Du Lịch">Du lịch</option>
+        <option value="Học Tập">Học tập</option>
+        <option value="Thế Giới">Thế giới</option>
+        <option value="Khác">Khác</option>
+      </select>
+      <script>
+        $("#category").val("{{blog.category}}");
+      </script>
+      <div class="text-right">
+        <a href="/me/stored/blogs" class="btn btn-danger mt-3">Huỷ</a>
+        <button type="submit" class="btn btn-success mt-3 ">Cập nhật</button>
+      </div>
+    </form>
+  </div>
+</body>
+<script>
+  const content1 = document.getElementById("content").value
+  console.log(content1)
+  //render content on editor
+  ClassicEditor
+    .create(document.querySelector('#CkEditor'))
+    .then(editor => {
+      editor.setData(content1); // Đặt nội dung vào CKEditor
+      editor.model.document.on('change', () => {
+        const contentValue = editor.getData();
+        document.getElementById("content").value = contentValue;
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+</script>
+  
+</html>
