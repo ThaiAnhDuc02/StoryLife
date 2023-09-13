@@ -17,6 +17,22 @@ class SiteController {
     console.log(req.body);
     res.render('searchResult');
   }
+  // [GET] /register
+  async register(req, res) {
+    try {
+      res.render('register')
+    } catch (error) {
+      console.log("ERROR!!!")
+    }
+  }
+    // [GET] /login
+  async login(req, res) {
+    try {
+      res.render('login')
+    } catch (error) {
+      console.log("ERROR!!!")
+    }
+  }
 
 
 }

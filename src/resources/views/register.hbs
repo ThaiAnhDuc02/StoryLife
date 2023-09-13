@@ -1,0 +1,137 @@
+<section class="vh-100" style="background-color: #eee; margin-top: -50px">
+    <div class="container h-90">
+        <div class="row d-flex justify-content-center align-items-center h-90">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-1">Đăng ký</p>
+                                <form class="mx-1 mx-md-4" method="POST" action="/register">
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <input name="username" type="text" id="username" class="form-control" />
+                                            <label class="form-label" for="username">Tên đăng nhập</label>
+                                        </div>
+                                    </div>
+                                    <label id="usernameMismatch" class="alert alert-danger" style="display: none;">Mật
+                                        khẩu không khớp. Vui lòng nhập lại.</label>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <div class="d-flex">
+                                                <input name="password" type="password" id="password"
+                                                    class="form-control" />
+                                                <i id="togglePassword"
+                                                    class="fas fa-eye-slash fa-lg toggle-password mt-2 "></i>
+                                            </div>
+
+                                            <label class="form-label" for="password">Mật khẩu</label>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <div class="d-flex">
+                                                <input name="repassword" type="password" id="form3Example4cd"
+                                                    class="form-control" />
+                                                <i id="toggleRePassword"
+                                                    class="fas fa-eye-slash fa-lg toggle-password mt-2 "></i>
+                                            </div>
+                                            <label class="form-label" for="form3Example4cd">Nhập lại mật khẩu</label>
+                                        </div>
+                                    </div>
+                                    <label id="passwordMismatch" class="alert alert-danger" style="display: none;">Mật
+                                        khẩu không khớp. Vui lòng nhập lại.</label>
+                                    <div class="form-check d-flex justify-content-center mb-5">
+                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                            id="form2Example3c" />
+                                        <label class="form-check-label" for="form2Example3">
+                                            I agree all statements in <a href="#!">Terms of service</a>
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <button type="submit" class="btn btn-primary btn-lg">Đăng kí</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                    class="img-fluid" alt="Sample image">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    const passwordInput = document.getElementById("password");
+    const repasswordInput = document.getElementById("form3Example4cd");
+    const togglePasswordButton = document.getElementById("togglePassword");
+    const toggleRePasswordButton = document.getElementById("toggleRePassword");
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const passwordMismatchAlert = document.getElementById("passwordMismatch");
+
+        // Kiểm tra sự khớp giữa mật khẩu và mật khẩu nhập lại mỗi khi người dùng thay đổi
+        repasswordInput.addEventListener("input", function () {
+            if (passwordInput.value !== repasswordInput.value) {
+                passwordMismatchAlert.style.display = "block";
+            } else {
+                passwordMismatchAlert.style.display = "none";
+            }
+        });
+
+        // Xử lý khi người dùng gửi biểu mẫu
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function (event) {
+            if (passwordInput.value !== repasswordInput.value) {
+                event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu nếu mật khẩu không khớp
+                passwordMismatchAlert.style.display = "block";
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        //password
+        togglePasswordButton.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                togglePasswordButton.classList.remove("fa-eye-slash");
+                togglePasswordButton.classList.add("fa-eye");
+            } else {
+                passwordInput.type = "password";
+                togglePasswordButton.classList.remove("fa-eye");
+                togglePasswordButton.classList.add("fa-eye-slash");
+            }
+        });
+        //rewrite pass
+        toggleRePasswordButton.addEventListener("click", function () {
+            if (repasswordInput.type === "password") {
+                repasswordInput.type = "text";
+                toggleRePasswordButton.classList.remove("fa-eye-slash");
+                toggleRePasswordButton.classList.add("fa-eye");
+            } else {
+                repasswordInput.type = "password";
+                toggleRePasswordButton.classList.remove("fa-eye");
+                toggleRePasswordButton.classList.add("fa-eye-slash");
+            }
+        });
+
+
+    });
+
+</script>

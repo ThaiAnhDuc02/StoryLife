@@ -12,7 +12,7 @@ function route(app) {
   app.post('/contact', siteRouter);
   app.use('/me',meRouter);
   app.use('/user',userRouter);
-  app.get('/', siteRouter);
+  app.use('/', siteRouter);
 }
 
 module.exports = route;

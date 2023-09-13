@@ -4,16 +4,18 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const User = new Schema({
-  name: { type: String, require: true },
-  age: { type: String, min: 1, require: true },
-  avatar: { type: String, require: true },
-  job: { type: String, },
-  facebook:{type: String},
-  instagram:{type: String},
-  github:{type: String},
-  address:{type: String},
-  phone:{type: String},
-  description:{type: String}
+  username: {type: String, require:true},
+  password:{ type :String, require: true},
+  name: { type: String, default: null},
+  age: { type: String, default:null},
+  avatar: { type: String, },
+  job: { type: String,default:null },
+  facebook:{type: String,default:null},
+  instagram:{type: String,default:null},
+  github:{type: String,default:null},
+  address:{type: String,default:null},
+  phone:{type: String,default:null},
+  description:{type: String,default:null}
 });
 
 module.exports = mongoose.model('User', User);
