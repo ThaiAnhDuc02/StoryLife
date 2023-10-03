@@ -1,39 +1,33 @@
-{{!-- header 1 --}}
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom py-3">
-  <div class="container py-1"><a class="navbar-brand text-lg fw-bold " style="color: red;" class="logo" href="/">Keep Things Simple !</a>
+  <div class="container py-1">
+    <a class="navbar-brand text-lg fw-bold" style="color: red;" class="logo" href="/">Keeping Things Simple !</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false"
       aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-        <li class="nav-item"><a class="nav-link " href="/">Trang chủ</a>
-        </li>
-        <li class="nav-item"><a class="nav-link b" href="/blog">Bài viết</a>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="/post">Tin tức</a>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="/contact">Liên hệ</a>
-        </li>
-        <li class="nav-item"><a class="nav-link " href="/register">Đăng kí</a>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="/login">Đăng nhập</a>
-        </li>
-        {{!-- <li class="nav-item dropdown">
-          <a class="btn  dropdown-toggle" style="color: black; font-weight:600" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-            <img class="user-avatar" style="margin:0 8px;"
-              src="https://res.cloudinary.com/dgvam9b0p/image/upload/v1691336818/blog_cloud/351456500_260405996644981_9086659673348838450_n_mwnf6j.jpg">
-            Thái Anh Đức
+        <li class="nav-item"><a class="nav-link " href="/">Trang chủ</a></li>
+        <li class="nav-item"><a class="nav-link b" href="/blog">Bài viết</a></li>
+        {{!-- <li class="nav-item"><a class="nav-link" href="/post">Tin tức</a></li> --}}
+        <li class="nav-item"><a class="nav-link" href="/contact">Liên hệ</a></li>
+        <li class="nav-item"><a class="nav-link " href="/register">Đăng kí</a></li>
+        <li class="nav-item"><a class="nav-link" href="/login">Đăng nhập</a></li>
+        <li id="user-section" class="nav-item dropdown" style="display: none;">
+          <a class="btn  dropdown-toggle" style="color: black; font-weight:600" role="button" data-bs-toggle="dropdown"
+            aria-expanded="true">
+            <img class="user-avatar" src="{{user.avatar}}">
+            {{user.name}}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/user">Hồ sơ</a></li>
+            <li><a class="dropdown-item" href="/user/profile/{{user.id}}">Hồ sơ</a></li>
             <li><a class="dropdown-item" href="/me/stored/blogs">Bài viết của tôi</a></li>
             <li><a class="dropdown-item" href="/blog/create">Viết bài</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+            <li><button id="logoutButton" class="dropdown-item">Đăng xuất</button></li>
           </ul>
-        </li> --}}
+        </li>
       </ul>
     </div>
   </div>
@@ -58,15 +52,11 @@
 </div>
 {{!-- the end header 1 --}}
 
-
-
-
-
 <script>
-  // Get the dropdown button element by class name
-  const dropdownButton = document.querySelector('.dropdown-toggle');
 
-  // Get the dropdown content element by class name
+  // Check if user.id exists
+
+  const dropdownButton = document.querySelector('.dropdown-toggle');
   const dropdownContent = document.querySelector('.dropdown-menu');
 
   // Add a click event listener to the dropdown button
@@ -78,5 +68,29 @@
       dropdownContent.style.display = 'block';
     }
   });
+</script>
+<script>
+  let user = "{{user}}";
+  if (user) {
+    // User is logged in, hide register and login links
+    const registerLink = document.querySelector('a[href="/register"]');
+    const loginLink = document.querySelector('a[href="/login"]');
+    const userSection = document.getElementById('user-section')
+    if (registerLink && loginLink) {
+      registerLink.style.display = 'none';
+      loginLink.style.display = 'none';
+      userSection.style.display = 'block'
+    }
+  }
+  // Xử lý sự kiện khi người dùng nhấp vào nút đăng xuất
+  function removeCookie(){
+    // Xóa cookie
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // Chuyển hướng người dùng đến trang đăng nhập
+    window.location.href = "/login";
+  }
+  document.getElementById("logoutButton").addEventListener("click",removeCookie);
+
 
 </script>

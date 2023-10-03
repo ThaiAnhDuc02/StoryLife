@@ -39,12 +39,12 @@
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <div class="d-flex">
-                                                <input name="repassword" type="password" id="form3Example4cd"
+                                                <input name="repassword" type="password" id="repassword"
                                                     class="form-control" />
                                                 <i id="toggleRePassword"
                                                     class="fas fa-eye-slash fa-lg toggle-password mt-2 "></i>
                                             </div>
-                                            <label class="form-label" for="form3Example4cd">Nhập lại mật khẩu</label>
+                                            <label class="form-label" for="repassword">Nhập lại mật khẩu</label>
                                         </div>
                                     </div>
                                     <label id="passwordMismatch" class="alert alert-danger" style="display: none;">Mật
@@ -79,7 +79,7 @@
 </section>
 <script>
     const passwordInput = document.getElementById("password");
-    const repasswordInput = document.getElementById("form3Example4cd");
+    const repasswordInput = document.getElementById("repassword");
     const togglePasswordButton = document.getElementById("togglePassword");
     const toggleRePasswordButton = document.getElementById("toggleRePassword");
     document.addEventListener("DOMContentLoaded", function () {
