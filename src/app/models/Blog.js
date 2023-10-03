@@ -13,6 +13,7 @@ const Blog = new Schema({
   images: { type: Array, default: null },
   views: { type: Number, default: 0 },
   category: { type: String, },
+  author:{type:String},
   slug: { type: String, slug: "title", unique: true },
 }, {
   timestamps: true

@@ -4,6 +4,8 @@ const express = require('express');
 var methodOverride = require('method-override')
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
+const cookieParser = require('cookie-parser')
+const dotenv = require("dotenv")
 
 const app = express();
 const port = 5000;
@@ -28,6 +30,11 @@ app.use(
   }),
 );
 app.use(express.json());
+
+//cookie parser
+app.use(cookieParser())
+//dotenv
+dotenv.config()
 
 //Http logger
 // app.use(morgan('dev'))
