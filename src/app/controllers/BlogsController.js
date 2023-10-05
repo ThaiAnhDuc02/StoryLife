@@ -1,11 +1,11 @@
 // @ts-nocheck
 const Blog = require('../models/Blog');
+const Category = require('../models/Category')
 const { multipleMongooseToObject, mongooseToObject } = require('../../util/mutipleMongooseToObject')
 const jwt = require("jsonwebtoken");
 const User = require('../models/User');
 const BlogsController = {
 
-  // [GET] /blog
   index: async (req, res) => {
     try {
       const accessToken = req.cookies["accessToken"];
@@ -14,59 +14,55 @@ const BlogsController = {
       }
 
       // Verify the access token
-      const userToken = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY)
+      const userToken = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY);
       //Find user
-      const userData = await User.findById(userToken.id)
+      const userData = await User.findById(userToken.id);
       if (!userData) {
-        return res.status(404).json('Not Founded ser')
+        return res.status(404).json('Not Founded ser');
       }
       // reSetUp the field of userInfo
-      const { _id, ...other } = userData._doc
+      const { _id, ...other } = userData._doc;
       const userInfoIntro = {
         id: _id,
         ...other
-      }
-
-
+      };
       // Access token is valid, fetch the blogs
-      const blogs = await Blog.find({}).limit(6)
+      const blogs = await Blog.find({}).limit(6);
       if (!blogs || blogs.length === 0) {
         return res.status(404).json('Blogs not available');
       }
+
       // Find author of blog 
       const blogsWithAuthors = await Promise.all(blogs.map(async (blog) => {
-        console.log(blog.author)
-        const author = await User.findById(blog.author); // Assuming blog.author contains author's ID
-        return { ...blog, author: author ? author : null };
-      }));
-      // set up data of blog 
-      const dataBlogs = blogsWithAuthors.map(blog => {
-        // Extract only necessary fields from the blog and author objects
-        const { _id, name, avatar } = blog.author;
+        const author = await User.findById(blog.author);
+        // get field necessary of author;
+        const { _id, name, avatar } = author;
+        const category = await Category.findById(blog.category);
         return {
           ...blog._doc,
-          author: blog.author ? { _id, name, avatar } : null
+          author: { _id, name, avatar },
+          category: mongooseToObject(category)
         };
-      });
-      
+      }));
       //Find Latest Posts
       const lastBlogs = await Blog.find({}).sort({ createdAt: -1 }).limit(3);
-      res.render('blog', { 
-        user: mongooseToObject(userInfoIntro), 
-        blogs: multipleMongooseToObject(dataBlogs),
-        lastBlogs:multipleMongooseToObject(lastBlogs)
-       });
+      //render
+      res.render('blog', {
+        user: mongooseToObject(userInfoIntro),
+        blogs: multipleMongooseToObject(blogsWithAuthors),
+        lastBlogs: multipleMongooseToObject(lastBlogs)
+      });
 
     } catch (error) {
       console.log(error);
-      if(jwt.JsonWebTokenError)
-      {
-        return res.redirect('/login')
+      if (jwt.JsonWebTokenError) {
+        return res.redirect('/login');
       }
       res.status(400).json({ error: "Failed to get Course" });
 
     }
   },
+
 
   // [GET] /blog/:slug
   async show(req, res) {
@@ -101,21 +97,22 @@ const BlogsController = {
 
 
   // [GET] /blog/create
-  async create(req, res) {
+  create: async (req, res) => {
     try {
       const accessToken = req.cookies["accessToken"];
       if (!accessToken) {
         return res.redirect('/login');
       }
-      jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
-        if (err) {
-          console.log(err);
-          return res.status(403).json('Access token is not valid');
-        }
-        // Access token is valid, fetch the blogs
-        res.render('blog/create', { user: user })
-      });
-
+      const user = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY)
+      if (!user) {
+        return res.status(403).json('Access token is not valid');
+      }
+      const category = await Category.find({})
+      if (!category) {
+        return res.status(404).json('The category is not valid')
+      }
+      // Access token is valid, fetch the blogs
+      res.render('blog/create', { user: user, category: multipleMongooseToObject(category) })
     } catch (error) {
       console.log("ERROR!!!")
     }
@@ -145,29 +142,33 @@ const BlogsController = {
   },
 
   // [GET] /blog/edit
-  async edit(req, res) {
+  edit: async (req, res) => {
     try {
       const accessToken = req.cookies["accessToken"];
       if (!accessToken) {
         return res.redirect('/login');
       }
-      jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
-        if (err) {
-          console.log(err);
-          return res.status(403).json('Access token is not valid');
-        }
-        // Access token is valid, fetch the blogs
-        Blog.findById(req.params.id)
-          .then(blog => {
-            console.log(typeof blog)
-            res.render('blog/edit', {
-              blog: mongooseToObject(blog),
-              user: user
-            })
-          })
-      });
+      const user = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY);
+      if (!user) {
+        console.log(err);
+        return res.status(403).json('Access token is not valid');
+      }
+      // Access token is valid, fetch the blogs
+      const blog = await Blog.findById(req.params.id)
+      if (!blog) {
+        return res.sendStatus(501)
+      }
+      const category = await Category.find({})
+      const dataBlogEdit = {
+        ...blog._doc,
+        categories: multipleMongooseToObject(category)
+      }
+      res.render('blog/edit', {
+        blog: (dataBlogEdit),
+        user: user,
+      })
     } catch (error) {
-      console.log("ERROR!!!")
+      res.status(404).json(error)
     }
   },
 

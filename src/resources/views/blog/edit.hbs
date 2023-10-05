@@ -27,14 +27,11 @@
       </div>
       <label for="cars">Chọn thể loại:</label>
       <select name="category" id="category" class="form-select" aria-label="Default select example">
-        <option value="Du Lịch">Du lịch</option>
-        <option value="Học Tập">Học tập</option>
-        <option value="Thế Giới">Thế giới</option>
-        <option value="Khác">Khác</option>
+        {{#each blog.categories}}
+        <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
       </select>
-      <script>
-        $("#category").val("{{blog.category}}");
-      </script>
+
       <div class="text-right">
         <a href="/me/stored/blogs" class="btn btn-danger mt-3">Huỷ</a>
         <button type="submit" class="btn btn-success mt-3 ">Cập nhật</button>
@@ -59,5 +56,8 @@
       console.error(error);
     });
 </script>
-  
+<script>
+  $("#category").val("{{blog.category}}");
+</script>
+
 </html>

@@ -1,0 +1,52 @@
+ <section id="blog" class="blog-mf sect-pt4 route">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="title-box text-center">
+            <h3 class="title-a">
+              Blog
+            </h3>
+            <p class="subtitle-a">
+              Hãy lan toả những điều tích cực đến với mọi người.
+            </p>
+            <div class="line-mf"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          {{!-- Blog card --}}
+          <div class="row">
+            {{#each blogs}}
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+              <div class="card">
+                <img style="height: 272px;" class="card-img image_cover" src="{{this.image_cover}}" alt="Bologna">
+                <div class="card-img">
+                  <a href="#" class="btn btn-light btn-sm"
+                    style="position: absolute; top: 16px; left: 16px; border-radius:3px; font-weight:600">{{this.category.name}}</a>
+                </div>
+                <div class="card-body">
+                  <h4 style="height:30px;" class="card-title h6 text-l1">{{this.title}}</h4>
+                  <small class="text-muted cat">
+                    <i class="far fa-clock text-info"></i> 30 minutes
+                    <i class="fas fa-users text-info"></i> {{this.author.name}}
+                  </small>
+                  <a style=" float: right;" href="/blog/{{this.slug}}" class="btn btn-info">Xem</a>
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+                  <div class="views">Oct 20, 12:45PM
+                  </div>
+                  <div class="stats">
+                    <i class="far fa-eye"></i> 1347
+                    <i class="far fa-comment"></i> 12
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+          {{!-- End blogs card --}}
+        </div>
+      </div>
+    </div>
+  </section><!-- End Blog Section -->
