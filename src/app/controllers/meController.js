@@ -2,6 +2,7 @@
 const Blog = require('../models/Blog');
 const { multipleMongooseToObject, mongooseToObject } = require('../../util/mutipleMongooseToObject');
 const jwt = require('jsonwebtoken');
+const Category = require('../models/Category');
 
 const meController = {
   // [GET] /blog
@@ -22,8 +23,17 @@ const meController = {
 
       // Find dataBlogs
       const dataBlogs = await Blog.find({ author: user.id });
+      //BlogWithCategory
+      const BlogWithCategory = await Promise.all(dataBlogs.map(async(blog) =>{
+        const category = await Category.findById(blog.category)
+        return {
+          ...blog._doc,
+          category: mongooseToObject(category)
+        }
+      }))
+
       return res.render('stored/blogs', {
-        blogs: multipleMongooseToObject(dataBlogs),
+        blogs: multipleMongooseToObject(BlogWithCategory),
         user: user
       });
 

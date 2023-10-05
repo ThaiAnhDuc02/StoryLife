@@ -26,10 +26,9 @@
       </div>
       <label for="cars">Chọn thể loại:</label>
       <select name="category"  class="form-select">
-        <option value="travel">Du lịch</option>
-        <option value="study">Học tập</option>
-        <option value="international">Thế giới</option>
-        <option value="different">Khác</option>
+        {{#each category}}
+        <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
       </select>
   
       <button type="submit" class="btn btn-primary mt-3">Submit</button>

@@ -7,8 +7,8 @@
           <div class="row gy-4 mb-5" style="justify-content: space-around;">
             <!-- post -->
             {{#each blogs}}
-            <div style=" padding:10px ; width: 49%;" class="col-12 col-sm-8 col-md-6 col-lg-6 card"><a
-                class="mb-3" href="blog/{{this.slug}}">
+            <div style=" padding:10px ; width: 49%;" class="col-12 col-sm-8 col-md-6 col-lg-6 card"><a class="mb-3"
+                href="blog/{{this.slug}}">
                 <div class="cover_block_image"><img class="img-fluid img-cover" src="{{this.image_cover}}"
                     alt="image cover"></div>
               </a>
@@ -18,7 +18,7 @@
                   <i class="far fa-eye"></i> 13
                   <i class="far fa-comment"></i> 12
                 </div><small class="text-gray-500" id="createdAt"></small><a class="small fw-bold text-uppercase small"
-                  href="!#">{{this.category}}</a>
+                  href="!#">{{this.category.name}}</a>
               </div>
               <h3 class="h6 text-l2" style="height: 40px;"><a class="text-dark"
                   href="blog/{{this.slug}}">{{this.title}}</a></h3>
@@ -30,9 +30,7 @@
                 <li class="list-inline-item">
                   <a class="d-flex align-items-center flex-wrap text-reset" href="!#">
                     <div class="avatar">
-                      <img class="img-fluid"
-                        src="{{this.author.avatar}}"
-                        alt="avatar" />
+                      <img class="img-fluid" src="{{this.author.avatar}}" alt="avatar" />
                     </div><small>{{this.author.name}}</small>
                   </a>
                 </li>
@@ -59,9 +57,9 @@
         <div class="card mb-5">
           <div class="card-body">
             <h3 class="h6">Search the blog</h3>
-            <form action="/search" method="POST">
+            <form action="/search">
               <div class="input-group border-bottom">
-                <input name="search_keyword" class="form-control border-0 shadow-0 ps-0" type="search"
+                <input name="q" class="form-control border-0 shadow-0 ps-0" type="search"
                   placeholder="What are you looking for?" />
                 <button class="btn btn-link btn-sm shadow-0 px-0" type="submit"><i class="fas fa-search"></i></button>
               </div>
@@ -73,10 +71,9 @@
           <div class="card-body">
             <h3 class="h6 mb-3">Latest Posts</h3>
             {{#each lastBlogs}}
-            <a class="text-reset mb-3" href="!#">
+            <a class="text-reset mb-3" href="blog/{{this.slug}}">
               <div class="d-flex align-items-center">
-                <img class=" img-fluid flex-shrink-0 image_cover-last-blog" src="{{this.image_cover}}" alt="..."
-                   />
+                <img class=" img-fluid flex-shrink-0 image_cover-last-blog" src="{{this.image_cover}}" alt="..." />
                 <div class="ms-3">
                   <p class="mb-2 fw-bold text-gray-700 lh-1">{{this.title}}</p>
                   <ul class="list-inline list-separated text-gray-500 d-flex align-items-center">
