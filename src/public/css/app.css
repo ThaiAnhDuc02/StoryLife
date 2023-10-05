@@ -53,19 +53,6 @@ h2 {
   float: right; }
 
 /* CSS cho header cố định */
-.navbar.fixed-top {
-  background-color: rgba(255, 255, 255, 0.9);
-  /* Màu nền của header */
-  animation: fadeInDown 0.5s ease-in-out;
-  /* Hiệu ứng animation khi xuất hiện */ }
-
-/* CSS cho khi cuộn trang xuống */
-.navbar.fixed-top.scrolled {
-  background-color: white;
-  /* Màu nền của header khi cuộn trang xuống */
-  animation: fadeInUp 0.5s ease-in-out;
-  /* Hiệu ứng animation khi xuất hiện */ }
-
 /* Định nghĩa animation */
 @keyframes fadeInDown {
   from {
@@ -155,9 +142,6 @@ body {
 @media screen and (max-width: 768px) {
   .cover_block_image {
     height: 150px; } }
-
-body {
-  margin-top: 20px; }
 
 .blog-listing {
   padding-top: 30px;

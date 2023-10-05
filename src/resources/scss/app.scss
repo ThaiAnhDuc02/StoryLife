@@ -52,16 +52,16 @@ h2 {
   }
 
 /* CSS cho header cố định */
-.navbar.fixed-top {
-  background-color: rgba(255, 255, 255, 0.9); /* Màu nền của header */
-  animation: fadeInDown 0.5s ease-in-out; /* Hiệu ứng animation khi xuất hiện */
-}
+// .navbar.fixed-top {
+//   background-color: rgba(255, 255, 255, 0.9); /* Màu nền của header */
+//   animation: fadeInDown 0.5s ease-in-out; /* Hiệu ứng animation khi xuất hiện */
+// }
 
-/* CSS cho khi cuộn trang xuống */
-.navbar.fixed-top.scrolled {
-  background-color: rgba(255, 255, 255, 1); /* Màu nền của header khi cuộn trang xuống */
-  animation: fadeInUp 0.5s ease-in-out; /* Hiệu ứng animation khi xuất hiện */
-}
+// /* CSS cho khi cuộn trang xuống */
+// .navbar.fixed-top.scrolled {
+//   background-color: rgba(255, 255, 255, 1); /* Màu nền của header khi cuộn trang xuống */
+//   animation: fadeInUp 0.5s ease-in-out; /* Hiệu ứng animation khi xuất hiện */
+// }
 
 /* Định nghĩa animation */
 @keyframes fadeInDown {
@@ -165,7 +165,7 @@ height: calc(100% - 73px);
   height: 150px;
 }
 }
-body{margin-top:20px;} .blog-listing { padding-top: 30px; padding-bottom:
+.blog-listing { padding-top: 30px; padding-bottom:
   30px; } .gray-bg { background-color: #f5f5f5; } /* Blog
   ---------------------*/ .blog-grid { box-shadow: 0 0 30px rgba(31, 45, 61,
   0.125); border-radius: 5px; overflow: hidden; background: #ffffff;
