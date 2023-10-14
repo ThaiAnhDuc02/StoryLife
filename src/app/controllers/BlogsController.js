@@ -71,26 +71,26 @@ const BlogsController = {
       if (!accessToken) {
         return res.redirect('/login');
       }
-      jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
-        if (err) {
-          console.log(err);
-          return res.status(403).json('Access token is not valid');
-        }
-
-        // Access token is valid, fetch the blogs
-        Blog.findOne({ slug: req.params.slug }).exec()
-          .then(blog => {
-            res.render('blog/detail', {
-              blog: mongooseToObject(blog),
-              user: user
-            })
-          })
-          .catch(error => {
-            console.log(error);
-            res.status(500).json({ error: "Failed to fetch blogs" });
-          });
-      });
-    } catch (error) {
+      const user = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY)
+      if (!user) {
+        console.log(err);
+        return res.status(403).json('Access token is not valid');
+      }
+      // Access token is valid, fetch the blogs
+      const blog = await Blog.findOne({ slug: req.params.slug }).exec()
+      if (!blog) {
+        return res.sendStatus(404);
+      }
+      const category = await Category.findById(blog.category)
+      const dataBlog = {
+        ...blog._doc,
+        category:mongooseToObject(category)
+      }
+      console.log(dataBlog)
+      return res.render('blog/detail', {
+        user: mongooseToObject(user), blog: mongooseToObject(dataBlog)
+      })}
+    catch (error) {
       console.log("ERROR!!!")
     }
   },
