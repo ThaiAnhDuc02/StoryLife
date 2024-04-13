@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 const dotenv = require("dotenv")
 
 const app = express();
-const port = 5000;
+const port = 5100;
 
 const route = require('./routes/index.route');
 

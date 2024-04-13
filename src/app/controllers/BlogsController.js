@@ -84,12 +84,13 @@ const BlogsController = {
       const category = await Category.findById(blog.category)
       const dataBlog = {
         ...blog._doc,
-        category:mongooseToObject(category)
+        category: mongooseToObject(category)
       }
       console.log(dataBlog)
       return res.render('blog/detail', {
         user: mongooseToObject(user), blog: mongooseToObject(dataBlog)
-      })}
+      })
+    }
     catch (error) {
       console.log("ERROR!!!")
     }
@@ -108,6 +109,7 @@ const BlogsController = {
         return res.status(403).json('Access token is not valid');
       }
       const category = await Category.find({})
+      console.log(category)
       if (!category) {
         return res.status(404).json('The category is not valid')
       }
