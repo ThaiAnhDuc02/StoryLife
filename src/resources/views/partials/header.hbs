@@ -9,14 +9,14 @@
         <li class="nav-item"><a class="nav-link " href="/">Trang chủ</a></li>
         <li class="nav-item"><a class="nav-link b" href="/blog">Bài viết</a></li>
         {{!-- <li class="nav-item"><a class="nav-link" href="/post">Tin tức</a></li> --}}
-        <li class="nav-item"><a class="nav-link" href="/contact">Liên hệ</a></li>
+        {{!-- <li class="nav-item"><a class="nav-link" href="/contact">Liên hệ</a></li> --}}
         <li class="nav-item"><a class="nav-link " href="/register">Đăng kí</a></li>
         <li class="nav-item"><a class="nav-link" href="/login">Đăng nhập</a></li>
         <li id="user-section" class="nav-item dropdown" style="display: none;">
           <a class="btn  dropdown-toggle" style="color: black; font-weight:600" role="button" data-bs-toggle="dropdown"
             aria-expanded="true">
             <img class="user-avatar" src="{{user.avatar}}">
-            {{user.name}}
+            {{user.username}}
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/user/profile/{{user.id}}">Hồ sơ</a></li>
@@ -82,15 +82,5 @@
       userSection.style.display = 'block'
     }
   }
-  // Xử lý sự kiện khi người dùng nhấp vào nút đăng xuất
-  function removeCookie(){
-    // Xóa cookie
-    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // Chuyển hướng người dùng đến trang đăng nhập
-    window.location.href = "/login";
-  }
-  document.getElementById("logoutButton").addEventListener("click",removeCookie);
-  
 
 </script>

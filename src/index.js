@@ -53,4 +53,4 @@ console.log(path.join(__dirname, 'views'));
 // Route
 route(app);
 
-app.listen(port, () => console.log(`Running app at http://localhost:${port}`));
+app.listen(process.env.port, () => console.log(`Running app at http://localhost:${process.env.port}`));
