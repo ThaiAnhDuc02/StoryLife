@@ -42,7 +42,7 @@ const UsersController = {
                     username: username,
                     password: hashed,
                 });
-                res.status(200).json("Sign up successfully");
+                res.redirect('/')
             }
         } catch (error) {
             console.error(error);
@@ -151,7 +151,7 @@ const UsersController = {
                             user: mongooseToObject(user),
                         })
                     })
-                })
+            })
         } catch (error) {
             res.status(404).json('token is not valid')
         }
@@ -189,7 +189,7 @@ const UsersController = {
         refreshTokens = refreshTokens.filter(token => token != req.cookies.refreshToken)
         res.status(200).json("Logged out !!!")
     },
-    
+
 }
 
 module.exports = UsersController;

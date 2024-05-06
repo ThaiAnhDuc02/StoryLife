@@ -6,10 +6,8 @@
     <div class="table-cell">
       <div class="container">
         <!--<p class="display-6 color-d">Hello, world!</p>-->
-        <h1 class="hero-title mb-4 fw-bold">Xin chào, Tôi là Đức!</h1>
-        <p class="hero-subtitle"><span class="typed"
-            data-typed-items="Chào mừng đến với My LifeStory, Châm ngôn tôi thích nhất: " Hãy sống và làm theo cách của
-            bạn""></span>
+        <h1 class="hero-title mb-4 fw-bold">Xin chào</h1>
+        <p class="hero-subtitle"><span class="typed" data-typed-items="Hãy chia sẽ hành trình của bản"></span>
         </p>
       </div>
     </div>
@@ -19,7 +17,7 @@
 <main id="main">
 
   <!-- ======= Blog Section ======= -->
-  <section id="blog" class="blog-mf sect-pt4 route">
+  <section id="blog" class="blog-mf sect-pt-4 route">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -44,24 +42,27 @@
                 <img style="height: 272px;" class="card-img image_cover" src="{{this.image_cover}}" alt="Bologna">
                 <div class="card-img">
                   <a href="#" class="btn btn-light btn-sm"
-                    style="position: absolute; top: 16px; left: 16px; border-radius:3px; font-weight:600">{{this.category.name}}</a>
+                    style="position: absolute; top: 16px; left: 16px; border-radius:3px; font-weight:600">{{this.category.category}}</a>
                 </div>
                 <div class="card-body">
                   <h4 style="height:30px;" class="card-title h6 text-l1">{{this.title}}</h4>
-                  <small class="text-muted cat">
-                    <i class="far fa-clock text-info"></i> 30 minutes
-                    <i class="fas fa-users text-info"></i> {{this.author.name}}
+                  <small class="text-uppercase d-flex gap-2 pt-2">
+                    <i class="fas fa-users text-info "></i>
+                    <p>{{this.author.username}}</p>
                   </small>
                   <a style=" float: right;" href="/blog/{{this.slug}}" class="btn btn-info">Xem</a>
                 </div>
-                <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
-                  <div class="views">Oct 20, 12:45PM
-                  </div>
-                  <div class="stats">
+                {{!-- <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+                  <div class="views">
+                    <p class="time">
+                      {{this.createdAt}}
+                    </p>
+                  </div> --}}
+                  {{!-- <div class="stats">
                     <i class="far fa-eye"></i> 1347
                     <i class="far fa-comment"></i> 12
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
             {{/each}}

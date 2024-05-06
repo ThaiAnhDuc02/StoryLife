@@ -35,11 +35,11 @@ const SiteController = {
       const blogsWithAuthors = await Promise.all(blogs.map(async (blog) => {
         console.log(blog.author)
         const author = await User.findById(blog.author);
-        const { _id, name, avatar } = author;
+        const { _id, name, avatar, username } = author;
         const category = await Category.findById(blog.category)
         return {
           ...blog._doc,
-          author: { _id, name, avatar },
+          author: { _id, name, avatar, username },
           category: mongooseToObject(category)
         };
       }));
@@ -134,8 +134,9 @@ const SiteController = {
         return {
           ...blog._doc,
           author: { _id, name, avatar },
-          category:mongooseToObject(category)
-        }}));
+          category: mongooseToObject(category)
+        }
+      }));
       console.log("🚀 ~ file: SiteController.js:137 ~ blogsWithAuthors ~ blogsWithAuthors:", blogsWithAuthors)
       // console.log(blogs);
       res.render('search', { user: mongooseToObject(dataUser), blogs: multipleMongooseToObject(blogsWithAuthors) });

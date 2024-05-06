@@ -1,11 +1,10 @@
 const mongoose = require('mongoose')
-async function connect () {
-    try{
+async function connect() {
+    try {
         await mongoose.connect('mongodb://localhost:27017/blog');
         console.log('Connect successfully')
     }
-    catch(error)
-    {
+    catch (error) {
         console.log('Connect failure')
     }
 
