@@ -58,7 +58,6 @@
 
   const dropdownButton = document.querySelector('.dropdown-toggle');
   const dropdownContent = document.querySelector('.dropdown-menu');
-
   // Add a click event listener to the dropdown button
   dropdownButton.addEventListener('click', function () {
     // Toggle the display of the dropdown content
@@ -82,5 +81,12 @@
       userSection.style.display = 'block'
     }
   }
-
+  function removeCookie() {
+    // Xóa cookie
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // Chuyển hướng người dùng đến trang đăng nhập
+    window.location.href = "/login";
+  }
+  document.getElementById("logoutButton").addEventListener("click", removeCookie);
 </script>
