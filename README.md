@@ -9,12 +9,15 @@ Website được xây dựng với mục đích cho hội nhóm bạn của tôi
 ---
 
 Tech:
-Framework: handlebars
-Front-end: Html, css, js, bootstrap
-Back-end: Node.js with Express framework and MongoDB database
 \*\*\*
 
-StoryLife is a web application that allows users
+- Framework: handlebars
+  \*\*\*
+- Front-end: Html, css, js, bootstrap
+  \*\*\*
+- Back-end: Node.js with Express framework and MongoDB database
+  \*\*\*
+
 Dự án hiện đang được phát triển thêm các feature mới
+\*\*\*
 Link demo: https://www.youtube.com/watch?v=9w01-bKxFcs
-Hình ảnh: ![](images_dir/image_path.jpg)
