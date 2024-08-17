@@ -28,9 +28,9 @@ const BlogsController = {
       };
       // Access token is valid, fetch the blogs
       const blogs = await Blog.find({}).limit(6);
-      if (!blogs || blogs.length === 0) {
-        return res.status(404).json('Blogs not available');
-      }
+      // if (!blogs || blogs.length === 0) {
+      //   return res.status(404).json('Blogs not available');
+      // }
 
       // Find author of blog 
       const blogsWithAuthors = await Promise.all(blogs.map(async (blog) => {
@@ -84,12 +84,13 @@ const BlogsController = {
       const category = await Category.findById(blog.category)
       const dataBlog = {
         ...blog._doc,
-        category:mongooseToObject(category)
+        category: mongooseToObject(category)
       }
-      console.log(dataBlog)
+
       return res.render('blog/detail', {
         user: mongooseToObject(user), blog: mongooseToObject(dataBlog)
-      })}
+      })
+    }
     catch (error) {
       console.log("ERROR!!!")
     }
@@ -128,7 +129,7 @@ const BlogsController = {
       }
       jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
         if (err) {
-          console.log(err);
+
           return res.status(403).json('Access token is not valid');
         }
         req.body.author = user.id;
@@ -150,7 +151,7 @@ const BlogsController = {
       }
       const user = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY);
       if (!user) {
-        console.log(err);
+
         return res.status(403).json('Access token is not valid');
       }
       // Access token is valid, fetch the blogs

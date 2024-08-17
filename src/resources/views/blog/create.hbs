@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,47 +8,49 @@
   {{!-- CkEditor --}}
   <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
 </head>
+
 <body>
-  <div class="container" >
+  <div class="container">
     <div class="mt-4" style="padding-bottom: 100px; margin-top:100px">
-    <h3>Viết blog</h3>
-    <form method="POST" action="/blog/store" id="createForm">
-      <div class="mb-3">
-        <label for="title" class="form-label">Tiêu đề</label>
-        <input type="text" class="form-control" id="title" name="title" />
-      </div>
-      {{!-- editor --}}
-      <div id="CkEditor"></div>
-      <input type="hidden" id="content" name="content" />
-      {{!-- the end editor --}}
-      <div class="mb-3">
-        <label for="image_cover" class="form-label">Hình ảnh</label>
-        <input type="text" class="form-control" id="image_cover" name="image_cover" />
-      </div>
-      <label for="cars">Chọn thể loại:</label>
-      <select name="category"  class="form-select">
-        {{#each category}}
-        <option value="{{this._id}}">{{this.name}}</option>
-        {{/each}}
-      </select>
-  
-      <button type="submit" class="btn btn-primary mt-3">Submit</button>
-    </form>
+      <h3>Viết blog</h3>
+      <form method="POST" action="/blog/store" id="createForm">
+        <div class="mb-3">
+          <label for="title" class="form-label">Tiêu đề</label>
+          <input type="text" class="form-control" id="title" name="title" />
+        </div>
+        {{!-- editor --}}
+        <div id="CkEditor"></div>
+        <input type="hidden" id="content" name="content" />
+        {{!-- the end editor --}}
+        <div class="mb-3">
+          <label for="image_cover" class="form-label">Hình ảnh</label>
+          <input type="text" class="form-control" id="image_cover" name="image_cover" />
+        </div>
+        <label for="cars">Chọn thể loại:</label>
+        <select name="category" class="form-select">
+          {{#each category}}
+          <option value="{{this._id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
+
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      </form>
+    </div>
+
   </div>
-  
-</div>
 </body>
-    <script>
-       ClassicEditor
-        .create( document.querySelector( '#CkEditor' ) )
-        .then( editor => {
-          editor.model.document.on('change:data', () => {
-          const content = editor.getData();
-          document.querySelector('#content').value = content;
+<script>
+  ClassicEditor
+    .create(document.querySelector('#CkEditor'))
+    .then(editor => {
+      editor.model.document.on('change:data', () => {
+        const content = editor.getData();
+        document.querySelector('#content').value = content;
       });
-        })
-        .catch( error => {
-          console.error( error );
-        });
-    </script>
+    })
+    .catch(error => {
+      console.error(error);
+    });
+</script>
+
 </html>

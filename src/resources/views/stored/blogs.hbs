@@ -14,10 +14,11 @@
         <th scope="row">{{@index}}</th>
         <th scope="row">{{this.category.name}}</th>
         <th scope="row">{{this.title}}</th>
-        <td  scope="row">
+        <td scope="row">
           <a href="/blog/{{this.slug}}" type="button" class="btn btn-info">Xem bài viết</a>
           <a href="/blog/{{this._id}}/edit" type="button" class="btn btn-dark">Sửa</a>
-          <a href="" class="btn btn-danger" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-blog-modal">Xóa</a>
+          <a href="" class="btn btn-danger" data-toggle="modal" data-id="{{this._id}}"
+            data-target="#delete-blog-modal">Xóa</a>
         </td>
       </tr>
       {{/each}}
@@ -57,7 +58,7 @@
     $('#delete-blog-modal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget);
       blogId = button.data('id');
-      console.log(blogId)
+
     });
 
     var btnDelete = document.getElementById('btn-delete-blog');
@@ -65,6 +66,6 @@
       deleteForm.action = '/blog/' + blogId + '?_method=DELETE'
       deleteForm.submit()
     }
-    
+
   })
 </script>

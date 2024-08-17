@@ -6,7 +6,7 @@ const {
 } = require("../../util/mutipleMongooseToObject");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+require("dotenv").config();
 
 let refreshTokens = [];
 let accessTokens = [];
@@ -42,7 +42,7 @@ const UsersController = {
                     username: username,
                     password: hashed,
                 });
-                res.status(200).json("Sign up successfully");
+                res.redirect("/")
             }
         } catch (error) {
             console.error(error);
@@ -86,44 +86,50 @@ const UsersController = {
     async login(req, res) {
         const { username, password } = req.body;
         try {
+            // Find user by username
             const existingUser = await User.findOne({ username: username });
             if (!existingUser) {
-                return res.status(404).json("Wrong User");
+                return res.status(404).json({ message: "User not found" });
             }
-            // Invalid Password
-            const invalidPassword = await bcrypt.compare(
-                password,
-                existingUser.password
-            );
-            if (!invalidPassword) {
-                return res.status(404).json("Wrong password");
+            console.log("User:", existingUser)
+            // Compare passwords
+            const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+            if (!isPasswordValid) {
+                return res.status(401).json({ message: "Invalid password" });
             }
-            if (existingUser && invalidPassword) {
-                const accessToken = UsersController.generateAccessToken(existingUser);
-                const refreshToken = UsersController.generateFreshToken(existingUser);
-                accessTokens.push(accessToken);
-                res.cookie("accessToken", accessToken, {
-                    httpOnly: true,
-                    secure: false,
-                    path: "/",
-                    sameSite: "strict",
-                })
-                refreshTokens.push(refreshToken);
-                res.cookie("refreshToken", refreshToken, {
-                    httpOnly: true,
-                    secure: false,
-                    path: "/",
-                    sameSite: "strict",
-                })
-                const { password, ...others } = existingUser._doc;
-            }
-            res.redirect('/')
+
+            // Generate tokens
+            const accessToken = UsersController.generateAccessToken(existingUser);
+            const refreshToken = UsersController.generateFreshToken(existingUser);
+
+            // Store tokens in arrays (make sure these arrays are correctly handled)
+            accessTokens.push(accessToken);
+            refreshTokens.push(refreshToken);
+
+            // Set cookies
+            res.cookie("accessToken", accessToken, {
+                httpOnly: true,
+                secure: false,
+                path: "/",
+                sameSite: "strict",
+            });
+            res.cookie("refreshToken", refreshToken, {
+                httpOnly: true,
+                secure: false,
+                path: "/",
+                sameSite: "strict",
+            });
+            // Remove password from response
+            const { password: userPassword, ...userWithoutPassword } = existingUser._doc;
+            // Redirect after setting cookies
+            res.redirect('/');
+
         } catch (error) {
             console.error(error);
-            res.status(404).json(error);
+            // Send error response
+            res.status(500).json({ message: "Internal server error" });
         }
     },
-
     async deleteUser(req, res) {
         try {
             const user = await User.findOneAndDelete({ _id: req.params.id });
@@ -138,20 +144,17 @@ const UsersController = {
             if (!accessToken) {
                 return res.redirect('/login')
             }
-            // console.log(accessToken)
             jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
                 if (err) {
-                    console.log(err)
                     res.status(403).json('Token is not valid')
                 }
-                // console.log('user.id', user.id)
                 User.findById({ _id: user.id })
                     .then(user => {
                         res.render('profile', {
                             user: mongooseToObject(user),
                         })
                     })
-                })
+            })
         } catch (error) {
             res.status(404).json('token is not valid')
         }
@@ -166,9 +169,6 @@ const UsersController = {
             return res.status(403).json('Refresh token is not valid')
         }
         jwt.verify(refreshToken, process.env.JWT_FRESH_KEY, (err, user) => {
-            if (err) {
-                console.log(err);
-            }
             refreshTokens = refreshTokens.filter(token => token !== refreshToken)
             const newAccessToken = UsersController.generateAccessToken(user);
             const newRefreshToken = UsersController.generateFreshToken(user);
@@ -189,7 +189,7 @@ const UsersController = {
         refreshTokens = refreshTokens.filter(token => token != req.cookies.refreshToken)
         res.status(200).json("Logged out !!!")
     },
-    
+
 }
 
 module.exports = UsersController;

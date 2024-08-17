@@ -28,9 +28,9 @@ const SiteController = {
       }
       // Access token is valid, fetch the blogs
       const blogs = await Blog.find({});
-      if (!blogs || blogs.length === 0) {
-        return res.status(404).json('Blogs not available');
-      }
+      // if (!blogs || blogs.length === 0) {
+      //   return res.status(404).json('Blogs not available');
+      // }
       // Find author of blog by blog.author
       const blogsWithAuthors = await Promise.all(blogs.map(async (blog) => {
         console.log(blog.author)
@@ -44,8 +44,6 @@ const SiteController = {
         };
       }));
       console.log("🚀 ~ file: SiteController.js:46 ~ blogsWithAuthors ~ blogsWithAuthors:", blogsWithAuthors)
-
-      // console.log("🚀 ~ file: SiteController.js:49 ~ dataBlogs ~ dataBlogs:", dataBlogs)
       // reSetUp the field of object
       const { _id, ...other } = userData._doc
       const userInfoIntro = {
@@ -56,9 +54,9 @@ const SiteController = {
 
     } catch (error) {
       if (jwt.TokenExpiredError) {
-        return res.redirect('/login')
+        return res.redirect('/register')
       }
-      console.error(error);
+      console.error(error, "Ê lỗi rồi lỗi ở đây");
       res.status(500).json(error)
     }
   },
@@ -74,10 +72,6 @@ const SiteController = {
         return res.status(403).json('Refresh token is not valid')
       }
       jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(user)
         res.render('contact', { user: user });
       })
     } catch (error) {
@@ -96,10 +90,6 @@ const SiteController = {
         return res.status(403).json('Refresh token is not valid')
       }
       jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(user)
         res.render('post', { user: user });
       })
     } catch (error) {
@@ -134,10 +124,11 @@ const SiteController = {
         return {
           ...blog._doc,
           author: { _id, name, avatar },
-          category:mongooseToObject(category)
-        }}));
+          category: mongooseToObject(category)
+        }
+      }));
       console.log("🚀 ~ file: SiteController.js:137 ~ blogsWithAuthors ~ blogsWithAuthors:", blogsWithAuthors)
-      // console.log(blogs);
+
       res.render('search', { user: mongooseToObject(dataUser), blogs: multipleMongooseToObject(blogsWithAuthors) });
     } catch (error) {
       res.status(404).json(error);

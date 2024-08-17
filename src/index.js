@@ -37,7 +37,7 @@ app.use(cookieParser())
 dotenv.config()
 
 //Http logger
-// app.use(morgan('dev'))
+app.use(morgan('dev'))
 
 //Template engine
 app.engine(
