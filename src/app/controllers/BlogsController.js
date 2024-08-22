@@ -109,6 +109,7 @@ const BlogsController = {
         return res.status(403).json('Access token is not valid');
       }
       const category = await Category.find({})
+      console.log(category)
       if (!category) {
         return res.status(404).json('The category is not valid')
       }

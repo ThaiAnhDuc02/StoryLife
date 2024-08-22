@@ -35,11 +35,11 @@ const SiteController = {
       const blogsWithAuthors = await Promise.all(blogs.map(async (blog) => {
         console.log(blog.author)
         const author = await User.findById(blog.author);
-        const { _id, name, avatar } = author;
+        const { _id, name, avatar, username } = author;
         const category = await Category.findById(blog.category)
         return {
           ...blog._doc,
-          author: { _id, name, avatar },
+          author: { _id, name, avatar, username },
           category: mongooseToObject(category)
         };
       }));
