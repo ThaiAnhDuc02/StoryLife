@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 const dotenv = require("dotenv")
 
 const app = express();
-const port = 5100;
+const port = 5000;
 
 const route = require('./routes/index.route');
 
@@ -53,4 +53,4 @@ console.log(path.join(__dirname, 'views'));
 // Route
 route(app);
 
-app.listen(process.env.port, () => console.log(`Running app at http://localhost:${process.env.port}`));
+app.listen(port, () => console.log(`Running app at http://localhost:${port}`));
