@@ -52,9 +52,7 @@ const BlogsController = {
         blogs: multipleMongooseToObject(blogsWithAuthors),
         lastBlogs: multipleMongooseToObject(lastBlogs)
       });
-
     } catch (error) {
-      console.log(error);
       if (jwt.JsonWebTokenError) {
         return res.redirect('/login');
       }

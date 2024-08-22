@@ -33,7 +33,6 @@ const SiteController = {
       // }
       // Find author of blog by blog.author
       const blogsWithAuthors = await Promise.all(blogs.map(async (blog) => {
-        console.log(blog.author)
         const author = await User.findById(blog.author);
         const { _id, name, avatar } = author;
         const category = await Category.findById(blog.category)
@@ -43,7 +42,6 @@ const SiteController = {
           category: mongooseToObject(category)
         };
       }));
-      console.log("🚀 ~ file: SiteController.js:46 ~ blogsWithAuthors ~ blogsWithAuthors:", blogsWithAuthors)
       // reSetUp the field of object
       const { _id, ...other } = userData._doc
       const userInfoIntro = {
@@ -127,7 +125,6 @@ const SiteController = {
           category: mongooseToObject(category)
         }
       }));
-      console.log("🚀 ~ file: SiteController.js:137 ~ blogsWithAuthors ~ blogsWithAuthors:", blogsWithAuthors)
 
       res.render('search', { user: mongooseToObject(dataUser), blogs: multipleMongooseToObject(blogsWithAuthors) });
     } catch (error) {
