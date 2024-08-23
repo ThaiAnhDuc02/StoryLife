@@ -43,7 +43,6 @@ const SiteController = {
           category: mongooseToObject(category)
         };
       }));
-      console.log("🚀 ~ file: SiteController.js:46 ~ blogsWithAuthors ~ blogsWithAuthors:", blogsWithAuthors)
       // reSetUp the field of object
       const { _id, ...other } = userData._doc
       const userInfoIntro = {

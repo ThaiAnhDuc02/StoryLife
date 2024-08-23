@@ -13,7 +13,7 @@
   <div class="container">
     <div class="mt-4" style="padding-bottom: 100px; margin-top:100px">
       <h3>Viết blog</h3>
-      <form method="POST" action="/blog/store" id="createForm">
+      <form method="POST" action="/blog/store" id="createForm" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="title" class="form-label">Tiêu đề</label>
           <input type="text" class="form-control" id="title" name="title" />
@@ -26,13 +26,17 @@
           <label for="image_cover" class="form-label">Hình ảnh</label>
           <input type="text" class="form-control" id="image_cover" name="image_cover" />
         </div>
-        <label for="cars">Chọn thể loại:</label>
-        <select name="category" class="form-select">
-          {{#each category}}
-          <option value="{{this._id}}">{{this.name}}</option>
-          {{/each}}
-        </select>
+        <div>Select Image Cover</div>
+        <input type="file" name="imageCover">
 
+        <div>
+          <label for="cars">Chọn thể loại:</label>
+          <select name="category" class="form-select">
+            {{#each category}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
         <button type="submit" class="btn btn-primary mt-3">Submit</button>
       </form>
     </div>

@@ -4,6 +4,30 @@ const Category = require('../models/Category')
 const { multipleMongooseToObject, mongooseToObject } = require('../../util/mutipleMongooseToObject')
 const jwt = require("jsonwebtoken");
 const User = require('../models/User');
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION
+});
+//
+const uploadImageToS3 = async (file) => {
+  if (!file) {
+    throw new Error("File is not provided");
+  }
+
+  const params = {
+    Bucket: process.env.S3_BUCKET_NAME,
+    Key: `images/${Date.now()}_${file.originalname}`,
+    Body: file.buffer,
+    ContentType: file.mimetype,
+    ACL: 'public-read'
+  };
+
+  return s3.upload(params).promise();
+};
+
 const BlogsController = {
 
   index: async (req, res) => {
@@ -121,27 +145,43 @@ const BlogsController = {
   },
 
 
+
   // [POST] /blog/create
-  async store(req, res) {
+  store: async (req, res) => {
     try {
       const accessToken = req.cookies["accessToken"];
       if (!accessToken) {
         return res.redirect('/login');
       }
-      jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
-        if (err) {
 
-          return res.status(403).json('Access token is not valid');
-        }
-        req.body.author = user.id;
-        const blog = new Blog(req.body)
-        blog.save()
-          .then(() => res.redirect('/'))
+      const user = await new Promise((resolve, reject) => {
+        jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, decodedUser) => {
+          if (err) {
+            return reject(err);
+          }
+          resolve(decodedUser);
+        });
       });
+
+      console.log(req.file)
+      // Upload image to S3
+      const uploadResult = await uploadImageToS3(req.file);
+      const imageUrl = uploadResult.Location;
+      console.log("imageUrl", imageUrl);
+
+      req.body.author = user.id;
+      req.body.imageUrl = imageUrl; // lưu lại địa chỉ hình ảnh lưu trên S3
+      const blog = new Blog(req.body);
+      await blog.save();
+
+      return res.redirect('/');
+
     } catch (error) {
-      console.log("ERROR!!!")
+      console.error("ERROR!!!", error);
+      return res.status(500).json({ message: "An error occurred" });
     }
   },
+
 
   // [GET] /blog/edit
   edit: async (req, res) => {
